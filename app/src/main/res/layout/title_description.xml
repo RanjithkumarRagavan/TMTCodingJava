@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        style="@style/card_view_style"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setTextViewAttribute="@{viewModel.setTitle()}" />
+
+            <TextView
+                android:id="@+id/title_description"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setTextViewAttribute="@{viewModel.setDescription()}" />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ranjith.tmtcodingjava.viewmodel.TitleDescriptionViewModel" />
+    </data>
+</layout>
