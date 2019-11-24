@@ -65,11 +65,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mWordViewModel.getAllWords().observe(this, new Observer<List<Home>>() {
+        mWordViewModel.getAllCards().observe(this, new Observer<List<Home>>() {
             @Override
-            public void onChanged(@Nullable final List<Home> words) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setWords(words);
+            public void onChanged(@Nullable final List<Home> home) {
+                if(home.size() == 0) {
+                    refreshHomeContent();
+                }else{
+                    adapter.setWords(home);
+                }
             }
         });
     }

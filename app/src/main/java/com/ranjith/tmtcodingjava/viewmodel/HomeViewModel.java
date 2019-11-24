@@ -14,15 +14,15 @@ public class HomeViewModel extends AndroidViewModel {
 
     private HomeRepository mRepository;
 
-    private LiveData<List<Home>> mAllWords;
+    private LiveData<List<Home>> allCards;
 
     public HomeViewModel (Application application) {
         super(application);
         mRepository = new HomeRepository(application);
-        mAllWords = mRepository.getAllWords();
+        allCards = mRepository.getAllCards();
     }
 
-    public LiveData<List<Home>> getAllWords() { return mAllWords; }
+    public LiveData<List<Home>> getAllCards() { return allCards; }
 
     public void insert(Home word) { mRepository.insert(word); }
 }

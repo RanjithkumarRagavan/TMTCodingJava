@@ -9,27 +9,27 @@ public class Card extends BaseAttribute{
 
     @SerializedName("title")
     @Expose
-    private Title title;
+    private BaseAttribute title;
     @SerializedName("description")
     @Expose
-    private Description description;
+    private BaseAttribute description;
     @SerializedName("image")
     @Expose
     private Image image;
 
-    public Title getTitle() {
+    public BaseAttribute getTitle() {
         return title;
     }
 
-    public void setTitle(Title title) {
+    public void setTitle(BaseAttribute title) {
         this.title = title;
     }
 
-    public Description getDescription() {
+    public BaseAttribute getDescription() {
         return description;
     }
 
-    public void setDescription(Description description) {
+    public void setDescription(BaseAttribute description) {
         this.description = description;
     }
 

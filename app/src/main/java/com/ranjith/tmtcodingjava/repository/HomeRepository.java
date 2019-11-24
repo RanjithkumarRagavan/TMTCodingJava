@@ -13,21 +13,21 @@ import java.util.List;
 
 public class HomeRepository {
 
-    private HomeDao mWordDao;
-    private LiveData<List<Home>> mAllWords;
+    private HomeDao homeDao;
+    private LiveData<List<Home>> allCards;
 
     public HomeRepository(Application application) {
         HomeDatabase db = HomeDatabase.getDatabase(application);
-        mWordDao = db.wordDao();
-        mAllWords = mWordDao.getAllWords();
+        homeDao = db.wordDao();
+        allCards = homeDao.getAllCards();
     }
 
-    public LiveData<List<Home>> getAllWords() {
-        return mAllWords;
+    public LiveData<List<Home>> getAllCards() {
+        return allCards;
     }
 
-    public void insert (Home word) {
-        new insertAsyncTask(mWordDao).execute(word);
+    public void insert (Home home) {
+        new insertAsyncTask(homeDao).execute(home);
     }
 
     private static class insertAsyncTask extends AsyncTask<Home, Void, Void> {

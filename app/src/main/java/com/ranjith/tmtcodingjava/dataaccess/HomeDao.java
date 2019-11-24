@@ -20,5 +20,5 @@ public interface HomeDao {
     void deleteAll();
 
     @Query("SELECT * from home_table ORDER BY home ASC")
-    LiveData<List<Home>> getAllWords();
+    LiveData<List<Home>> getAllCards();
 }

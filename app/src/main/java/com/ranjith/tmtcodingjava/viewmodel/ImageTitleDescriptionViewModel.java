@@ -2,9 +2,8 @@ package com.ranjith.tmtcodingjava.viewmodel;
 
 import androidx.databinding.BaseObservable;
 
+import com.ranjith.tmtcodingjava.models.BaseAttribute;
 import com.ranjith.tmtcodingjava.models.Card;
-import com.ranjith.tmtcodingjava.models.Description;
-import com.ranjith.tmtcodingjava.models.Title;
 
 public class ImageTitleDescriptionViewModel extends BaseObservable {
     private Card card;
@@ -12,7 +11,7 @@ public class ImageTitleDescriptionViewModel extends BaseObservable {
         this.card = card;
     }
 
-    public Title setTitle() {
+    public BaseAttribute setTitle() {
         return this.card.getTitle();
     }
 
@@ -20,7 +19,7 @@ public class ImageTitleDescriptionViewModel extends BaseObservable {
         return this.card.getImage().getUrl();
     }
 
-    public Description setDescription() {
+    public BaseAttribute setDescription() {
         return this.card.getDescription();
     }
 }
