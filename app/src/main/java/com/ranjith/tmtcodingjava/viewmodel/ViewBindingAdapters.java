@@ -1,5 +1,6 @@
 package com.ranjith.tmtcodingjava.viewmodel;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -8,9 +9,9 @@ import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
-import com.ranjith.tmtcodingjava.R;
 import com.ranjith.tmtcodingjava.models.BaseAttribute;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 public class ViewBindingAdapters {
 
@@ -50,6 +51,31 @@ public class ViewBindingAdapters {
 
     @BindingAdapter({"app:setImage"})
     public static void setImage(ImageView view, String imageUrl) {
-        Picasso.get().load(imageUrl).into(view);
+        final ImageView sourceImageView = view;
+
+        Transformation transformation = new Transformation() {
+
+            @Override
+            public Bitmap transform(Bitmap source) {
+                int targetWidth = sourceImageView.getWidth();
+
+                double aspectRatio = (double) source.getHeight() / (double) source.getWidth();
+                int targetHeight = (int) (targetWidth * aspectRatio);
+                Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+                if (result != source) {
+                    // Same bitmap is returned if sizes are the same
+                    source.recycle();
+                }
+                return result;
+            }
+
+            @Override
+            public String key() {
+                return "transformation" + " desiredWidth";
+            }
+        };
+
+        Picasso.get().load(imageUrl).transform(transformation).into(view);
+
     }
 }
