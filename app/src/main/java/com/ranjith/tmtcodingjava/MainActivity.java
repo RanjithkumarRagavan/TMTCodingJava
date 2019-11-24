@@ -1,39 +1,32 @@
 package com.ranjith.tmtcodingjava;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-import com.ranjith.tmtcodingjava.entities.Home;
-import com.ranjith.tmtcodingjava.models.Attributes;
-import com.ranjith.tmtcodingjava.models.Cards;
-import com.ranjith.tmtcodingjava.models.Card;
-import com.ranjith.tmtcodingjava.models.Description;
-import com.ranjith.tmtcodingjava.models.Font;
-import com.ranjith.tmtcodingjava.models.Image;
-import com.ranjith.tmtcodingjava.models.Size;
-import com.ranjith.tmtcodingjava.models.Title;
-import com.ranjith.tmtcodingjava.network.APIClient;
-import com.ranjith.tmtcodingjava.network.APIInterface;
-import com.ranjith.tmtcodingjava.viewadapter.HomeListAdapter;
-import com.ranjith.tmtcodingjava.viewmodel.HomeViewModel;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.RotateAnimation;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.ranjith.tmtcodingjava.entities.Home;
+import com.ranjith.tmtcodingjava.models.Cards;
+import com.ranjith.tmtcodingjava.network.APIClient;
+import com.ranjith.tmtcodingjava.network.APIInterface;
+import com.ranjith.tmtcodingjava.viewadapter.HomeListAdapter;
+import com.ranjith.tmtcodingjava.viewmodel.HomeViewModel;
 
 import java.util.List;
 
@@ -56,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refreshHomeContent();
+                if(isInternetAvailable()) {
+                    refreshHomeContent();
+                }else{
+                    Snackbar.make(view, "Check network connection...", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
@@ -106,6 +104,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     private void refreshAnimation(FloatingActionButton fab){
         RotateAnimation rotate = new RotateAnimation(
